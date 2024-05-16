@@ -45,19 +45,19 @@ router.post('/create', isAuthenticated, async (req, res) => {
 
 // Edit bug
 router.get('/edit/:id', isAuthenticated, async (req, res) => {
-  const bug = await Bug.findById(req.params.id);
+  const bug = await Bug.findOne({ id: req.params.id });
   res.render('edit', { bug });
 });
 
 router.post('/edit/:id', isAuthenticated, async (req, res) => {
   const { title, module, description, reporter, dateReported, steps, expectedBehavior, actualBehavior, severity, status, priority } = req.body;
-  await Bug.findByIdAndUpdate(req.params.id, { title, module, description, reporter, dateReported, steps, expectedBehavior, actualBehavior, severity, status, priority });
+  await Bug.findOneAndUpdate({ id: req.params.id }, { title, module, description, reporter, dateReported, steps, expectedBehavior, actualBehavior, severity, status, priority });
   res.redirect('/');
 });
 
 // Delete bug
 router.post('/delete/:id', isAuthenticated, async (req, res) => {
-  await Bug.findByIdAndRemove(req.params.id);
+  await Bug.findOneAndDelete({ id: req.params.id });
   res.redirect('/');
 });
 

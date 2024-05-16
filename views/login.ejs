@@ -11,6 +11,15 @@
   </head>
   <body class="container">
     <h1 class="my-4">Login</h1>
+
+    <% if (success_msg && success_msg.length > 0) { %>
+    <div class="alert alert-success"><%= success_msg %></div>
+    <% } %> <% if (error_msg && error_msg.length > 0) { %>
+    <div class="alert alert-danger"><%= error_msg %></div>
+    <% } %> <% if (error && error.length > 0) { %>
+    <div class="alert alert-danger"><%= error %></div>
+    <% } %>
+
     <form action="/login" method="POST">
       <div class="form-group">
         <label for="username">Username:</label>
@@ -35,5 +44,9 @@
       <button type="submit" class="btn btn-primary">Login</button>
     </form>
     <a href="/register" class="btn btn-link">Register</a>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   </body>
 </html>

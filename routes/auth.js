@@ -11,7 +11,7 @@ router.get('/login', (req, res) => {
 router.post('/login', passport.authenticate('local', {
   successRedirect: '/',
   failureRedirect: '/login',
-  failureFlash: true
+  failureFlash: true // Enable flash messages on failure
 }));
 
 // Registration route
@@ -21,14 +21,22 @@ router.get('/register', (req, res) => {
 
 router.post('/register', async (req, res) => {
   const { username, password } = req.body;
+  const userExists = await User.findOne({ username });
+  if (userExists) {
+    req.flash('error_msg', 'Username already exists');
+    return res.redirect('/register');
+  }
+
   const newUser = new User({ username, password });
   await newUser.save();
+  req.flash('success_msg', 'You are registered and can log in');
   res.redirect('/login');
 });
 
 // Logout route
 router.get('/logout', (req, res) => {
   req.logout();
+  req.flash('success_msg', 'You are logged out');
   res.redirect('/login');
 });
 

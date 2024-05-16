@@ -6,6 +6,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const session = require('express-session');
 const bcrypt = require('bcryptjs');
+const flash = require('connect-flash'); // Require connect-flash
 require('dotenv').config();
 
 const app = express();
@@ -22,7 +23,20 @@ app.set('view engine', 'ejs');
 app.use(session({ secret: process.env.SECRET, resave: false, saveUninitialized: false }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash()); // Use flash middleware
 
+// Set global variables for flash messages
+app.use((req, res, next) => {
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error');
+  next();
+});
+
+// Import User model
+const User = require('./models/User');
+
+// Passport configuration
 passport.use(new LocalStrategy(async (username, password, done) => {
   try {
     const user = await User.findOne({ username });
@@ -48,11 +62,27 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 
+// Create default user if not exists
+const createDefaultUser = async () => {
+  const user = await User.findOne({ username: 'admin' });
+  if (!user) {
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash('password', salt);
+    const newUser = new User({
+      username: 'admin',
+      password: hashedPassword
+    });
+    await newUser.save();
+    console.log('Default user created');
+  }
+};
+createDefaultUser();
+
 // Routes
-const indexRoutes = require('./routes/index');
+const bugRoutes = require('./routes/bug');
 const authRoutes = require('./routes/auth');
-app.use('/', indexRoutes);
 app.use('/', authRoutes);
+app.use('/', bugRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

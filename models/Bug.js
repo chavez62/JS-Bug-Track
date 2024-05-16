@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
+const { v4: uuidv4 } = require('uuid');
 
 const bugSchema = new mongoose.Schema({
+  id: { type: String, default: () => uuidv4().slice(0, 8) }, // Use first 8 characters of a UUID
   title: { type: String, required: true },
   module: { type: String, required: true },
   description: { type: String, required: true },
