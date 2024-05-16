@@ -2,8 +2,13 @@ const express = require('express');
 const router = express.Router();
 const Bug = require('../models/Bug');
 
+function isAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) return next();
+  res.redirect('/login');
+}
+
 // Home route
-router.get('/', async (req, res) => {
+router.get('/', isAuthenticated, async (req, res) => {
   const filter = req.query.filter;
   let bugs = await Bug.find();
 
@@ -27,11 +32,11 @@ router.get('/', async (req, res) => {
 });
 
 // Create new bug
-router.get('/create', (req, res) => {
+router.get('/create', isAuthenticated, (req, res) => {
   res.render('create');
 });
 
-router.post('/create', async (req, res) => {
+router.post('/create', isAuthenticated, async (req, res) => {
   const { title, module, description, reporter, dateReported, steps, expectedBehavior, actualBehavior, severity, status, priority } = req.body;
   const newBug = new Bug({ title, module, description, reporter, dateReported, steps, expectedBehavior, actualBehavior, severity, status, priority });
   await newBug.save();
@@ -39,19 +44,19 @@ router.post('/create', async (req, res) => {
 });
 
 // Edit bug
-router.get('/edit/:id', async (req, res) => {
+router.get('/edit/:id', isAuthenticated, async (req, res) => {
   const bug = await Bug.findById(req.params.id);
   res.render('edit', { bug });
 });
 
-router.post('/edit/:id', async (req, res) => {
+router.post('/edit/:id', isAuthenticated, async (req, res) => {
   const { title, module, description, reporter, dateReported, steps, expectedBehavior, actualBehavior, severity, status, priority } = req.body;
   await Bug.findByIdAndUpdate(req.params.id, { title, module, description, reporter, dateReported, steps, expectedBehavior, actualBehavior, severity, status, priority });
   res.redirect('/');
 });
 
 // Delete bug
-router.post('/delete/:id', async (req, res) => {
+router.post('/delete/:id', isAuthenticated, async (req, res) => {
   await Bug.findByIdAndRemove(req.params.id);
   res.redirect('/');
 });
