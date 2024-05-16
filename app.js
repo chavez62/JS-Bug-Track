@@ -19,7 +19,7 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
-app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }));
+app.use(session({ secret: process.env.SECRET, resave: false, saveUninitialized: false }));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -50,13 +50,9 @@ passport.deserializeUser(async (id, done) => {
 
 // Routes
 const indexRoutes = require('./routes/index');
+const authRoutes = require('./routes/auth');
 app.use('/', indexRoutes);
-
-// Error handling
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send('Something broke!');
-});
+app.use('/', authRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
