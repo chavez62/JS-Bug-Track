@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bug Tracker 🕷</title>
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="container">
+    <h1 class="my-4 text-center">Bug Tracker 🕷</h1>
+    <form class="form-inline mb-3" action="/" method="GET">
+      <input
+        type="text"
+        class="form-control mr-2"
+        name="filter"
+        id="filter"
+        placeholder="Filter"
+      />
+      <button type="submit" class="btn btn-primary mr-2">Search</button>
+      <button type="button" class="btn btn-secondary" id="clearBtn">
+        Clear
+      </button>
+    </form>
+    <a href="/create" class="btn btn-success mb-3">Create</a>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Title</th>
+          <th>Module</th>
+          <th>Status</th>
+          <th>Priority</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% bugs.forEach(bug => { %>
+        <tr>
+          <td><%= bug.id %></td>
+          <td><%= bug.title %></td>
+          <td><%= bug.module %></td>
+          <td><%= bug.status %></td>
+          <td><%= bug.priority %></td>
+          <td>
+            <a href="/edit/<%= bug.id %>" class="btn btn-primary btn-sm"
+              >Update</a
+            >
+            <form action="/delete/<%= bug.id %>" method="POST" class="d-inline">
+              <button type="submit" class="btn btn-danger btn-sm">
+                Delete
+              </button>
+            </form>
+          </td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+    <script>
+      document
+        .getElementById("clearBtn")
+        .addEventListener("click", function () {
+          document.getElementById("filter").value = "";
+          window.location.href = "/";
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>

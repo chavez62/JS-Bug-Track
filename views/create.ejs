@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Bug</title>
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .error {
+        color: red;
+        font-size: 0.875em;
+      }
+    </style>
+  </head>
+  <body class="container">
+    <h1 class="my-4">Create Bug</h1>
+    <form action="/create" method="POST" id="bugForm">
+      <div class="form-group">
+        <label for="title">Title:</label>
+        <input
+          type="text"
+          id="title"
+          name="title"
+          class="form-control"
+          placeholder="Enter bug title"
+          required
+        />
+        <div class="error" id="titleError"></div>
+      </div>
+      <div class="form-group">
+        <label for="module">Module:</label>
+        <input
+          type="text"
+          id="module"
+          name="module"
+          class="form-control"
+          placeholder="Enter module name"
+          required
+        />
+        <div class="error" id="moduleError"></div>
+      </div>
+      <div class="form-group">
+        <label for="description">Description:</label>
+        <textarea
+          id="description"
+          name="description"
+          class="form-control"
+          rows="4"
+          placeholder="Enter detailed description"
+          required
+        ></textarea>
+        <div class="error" id="descriptionError"></div>
+      </div>
+      <div class="form-group">
+        <label for="reporter">Reporter Name:</label>
+        <input
+          type="text"
+          id="reporter"
+          name="reporter"
+          class="form-control"
+          placeholder="Enter your name"
+          required
+        />
+        <div class="error" id="reporterError"></div>
+      </div>
+      <div class="form-group">
+        <label for="dateReported">Date Reported:</label>
+        <input
+          type="date"
+          id="dateReported"
+          name="dateReported"
+          class="form-control"
+          required
+        />
+        <div class="error" id="dateReportedError"></div>
+      </div>
+      <div class="form-group">
+        <label for="steps">Steps to Reproduce:</label>
+        <textarea
+          id="steps"
+          name="steps"
+          class="form-control"
+          rows="3"
+          placeholder="Enter steps to reproduce the bug"
+          required
+        ></textarea>
+        <div class="error" id="stepsError"></div>
+      </div>
+      <div class="form-group">
+        <label for="expectedBehavior">Expected Behavior:</label>
+        <textarea
+          id="expectedBehavior"
+          name="expectedBehavior"
+          class="form-control"
+          rows="2"
+          placeholder="Enter expected behavior"
+          required
+        ></textarea>
+        <div class="error" id="expectedBehaviorError"></div>
+      </div>
+      <div class="form-group">
+        <label for="actualBehavior">Actual Behavior:</label>
+        <textarea
+          id="actualBehavior"
+          name="actualBehavior"
+          class="form-control"
+          rows="2"
+          placeholder="Enter actual behavior"
+          required
+        ></textarea>
+        <div class="error" id="actualBehaviorError"></div>
+      </div>
+      <div class="form-group">
+        <label for="severity">Severity:</label>
+        <select id="severity" name="severity" class="form-control" required>
+          <option value="">Select severity</option>
+          <option value="Critical">Critical</option>
+          <option value="Major">Major</option>
+          <option value="Minor">Minor</option>
+        </select>
+        <div class="error" id="severityError"></div>
+      </div>
+      <div class="form-group">
+        <label for="status">Status:</label>
+        <select id="status" name="status" class="form-control" required>
+          <option value="">Select status</option>
+          <option value="Pending">Pending</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Completed">Completed</option>
+        </select>
+        <div class="error" id="statusError"></div>
+      </div>
+      <div class="form-group">
+        <label for="priority">Priority:</label>
+        <select id="priority" name="priority" class="form-control" required>
+          <option value="">Select priority</option>
+          <option value="Low">Low</option>
+          <option value="Medium">Medium</option>
+          <option value="High">High</option>
+        </select>
+        <div class="error" id="priorityError"></div>
+      </div>
+      <button type="submit" class="btn btn-success">Create</button>
+    </form>
+
+    <script>
+      document
+        .getElementById("bugForm")
+        .addEventListener("submit", function (event) {
+          let valid = true;
+
+          const title = document.getElementById("title");
+          const module = document.getElementById("module");
+          const description = document.getElementById("description");
+          const reporter = document.getElementById("reporter");
+          const dateReported = document.getElementById("dateReported");
+          const steps = document.getElementById("steps");
+          const expectedBehavior = document.getElementById("expectedBehavior");
+          const actualBehavior = document.getElementById("actualBehavior");
+          const severity = document.getElementById("severity");
+          const status = document.getElementById("status");
+          const priority = document.getElementById("priority");
+
+          if (title.value.trim() === "") {
+            valid = false;
+            document.getElementById("titleError").textContent =
+              "Title is required.";
+          } else {
+            document.getElementById("titleError").textContent = "";
+          }
+
+          if (module.value.trim() === "") {
+            valid = false;
+            document.getElementById("moduleError").textContent =
+              "Module is required.";
+          } else {
+            document.getElementById("moduleError").textContent = "";
+          }
+
+          if (description.value.trim() === "") {
+            valid = false;
+            document.getElementById("descriptionError").textContent =
+              "Description is required.";
+          } else {
+            document.getElementById("descriptionError").textContent = "";
+          }
+
+          if (reporter.value.trim() === "") {
+            valid = false;
+            document.getElementById("reporterError").textContent =
+              "Reporter name is required.";
+          } else {
+            document.getElementById("reporterError").textContent = "";
+          }
+
+          if (dateReported.value.trim() === "") {
+            valid = false;
+            document.getElementById("dateReportedError").textContent =
+              "Date reported is required.";
+          } else {
+            document.getElementById("dateReportedError").textContent = "";
+          }
+
+          if (steps.value.trim() === "") {
+            valid = false;
+            document.getElementById("stepsError").textContent =
+              "Steps to reproduce are required.";
+          } else {
+            document.getElementById("stepsError").textContent = "";
+          }
+
+          if (expectedBehavior.value.trim() === "") {
+            valid = false;
+            document.getElementById("expectedBehaviorError").textContent =
+              "Expected behavior is required.";
+          } else {
+            document.getElementById("expectedBehaviorError").textContent = "";
+          }
+
+          if (actualBehavior.value.trim() === "") {
+            valid = false;
+            document.getElementById("actualBehaviorError").textContent =
+              "Actual behavior is required.";
+          } else {
+            document.getElementById("actualBehaviorError").textContent = "";
+          }
+
+          if (severity.value === "") {
+            valid = false;
+            document.getElementById("severityError").textContent =
+              "Severity is required.";
+          } else {
+            document.getElementById("severityError").textContent = "";
+          }
+
+          if (status.value === "") {
+            valid = false;
+            document.getElementById("statusError").textContent =
+              "Status is required.";
+          } else {
+            document.getElementById("statusError").textContent = "";
+          }
+
+          if (priority.value === "") {
+            valid = false;
+            document.getElementById("priorityError").textContent =
+              "Priority is required.";
+          } else {
+            document.getElementById("priorityError").textContent = "";
+          }
+
+          if (!valid) {
+            event.preventDefault();
+          }
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>
