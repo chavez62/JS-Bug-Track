@@ -8,32 +8,110 @@
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
       rel="stylesheet"
     />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background: linear-gradient(135deg, #71b7e6, #9b59b6);
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .card {
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      .form-control {
+        border-radius: 30px;
+      }
+      .btn-primary {
+        border-radius: 30px;
+        background-color: #007bff;
+        border: none;
+      }
+      .btn-link {
+        color: #007bff;
+      }
+      .btn-primary:hover {
+        background-color: #0056b3;
+      }
+      .btn-link:hover {
+        color: #0056b3;
+      }
+    </style>
   </head>
-  <body class="container">
-    <h1 class="my-4">Register</h1>
-    <form action="/register" method="POST">
-      <div class="form-group">
-        <label for="username">Username:</label>
-        <input
-          type="text"
-          id="username"
-          name="username"
-          class="form-control"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <label for="password">Password:</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          class="form-control"
-          required
-        />
-      </div>
-      <button type="submit" class="btn btn-primary">Register</button>
-    </form>
-    <a href="/login" class="btn btn-link">Login</a>
+  <body>
+    <div class="card p-4" style="width: 400px">
+      <h1 class="text-center mb-4">Register</h1>
+      <form action="/register" method="POST" id="registerForm" novalidate>
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            class="form-control"
+            placeholder="Enter your username"
+            required
+          />
+          <div class="invalid-feedback">Username is required.</div>
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            class="form-control"
+            placeholder="Enter your password"
+            required
+          />
+          <div class="invalid-feedback">Password is required.</div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">
+          Register
+        </button>
+        <a href="/login" class="btn btn-link btn-block"
+          >Already have an account? Login</a
+        >
+      </form>
+    </div>
+
+    <script>
+      // Bootstrap form validation
+      (function () {
+        "use strict";
+        window.addEventListener(
+          "load",
+          function () {
+            var forms = document.getElementsByClassName("needs-validation");
+            var validation = Array.prototype.filter.call(
+              forms,
+              function (form) {
+                form.addEventListener(
+                  "submit",
+                  function (event) {
+                    if (form.checkValidity() === false) {
+                      event.preventDefault();
+                      event.stopPropagation();
+                    }
+                    form.classList.add("was-validated");
+                  },
+                  false
+                );
+              }
+            );
+          },
+          false
+        );
+      })();
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   </body>
 </html>
