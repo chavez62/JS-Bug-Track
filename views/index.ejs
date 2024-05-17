@@ -25,6 +25,22 @@
       .card {
         margin-bottom: 1rem;
       }
+      .status-indicator {
+        display: inline-flex;
+        align-items: center;
+      }
+      .status-indicator i {
+        margin-right: 5px;
+      }
+      .in-progress {
+        color: orange;
+      }
+      .pending {
+        color: rgb(130, 18, 221);
+      }
+      .completed {
+        color: green;
+      }
     </style>
   </head>
   <body>
@@ -132,8 +148,11 @@
               <td><%= bug.module %></td>
               <td>
                 <span
-                  class="badge <% if (bug.status === 'Pending') { %> badge-warning <% } else if (bug.status === 'In Progress') { %> badge-info <% } else { %> badge-success <% } %>"
+                  class="status-indicator <% if (bug.status === 'Pending') { %> pending <% } else if (bug.status === 'In Progress') { %> in-progress <% } else { %> completed <% } %>"
                 >
+                  <i
+                    class="<% if (bug.status === 'Pending') { %> fas fa-clock <% } else if (bug.status === 'In Progress') { %> fas fa-wrench <% } else { %> fas fa-check <% } %>"
+                  ></i>
                   <%= bug.status %>
                 </span>
               </td>
