@@ -80,20 +80,6 @@ Before you begin, ensure you have met the following requirements:
 ![image](https://github.com/chavez62/JS-Bug-Track/assets/67764701/f6583563-47ce-46c9-bbbc-ca8f3970c40c)
 
 
-## Contributing
-
-If you want to contribute to this project, follow these steps:
-
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature/your-feature-name`).
-3. Make your changes and commit them (`git commit -m 'Add some feature'`).
-4. Push to the branch (`git push origin feature/your-feature-name`).
-5. Open a pull request.
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
 ## Acknowledgements
 
 - [Express](https://expressjs.com/)
