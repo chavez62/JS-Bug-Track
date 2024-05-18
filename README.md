@@ -77,6 +77,8 @@ Before you begin, ensure you have met the following requirements:
 ## Screenshots
 
 ![image](https://github.com/chavez62/JS-Bug-Track/assets/67764701/adc045ae-7e6b-4710-8e55-568f6ee7dd17)
+![image](https://github.com/chavez62/JS-Bug-Track/assets/67764701/f6583563-47ce-46c9-bbbc-ca8f3970c40c)
+
 
 ## Contributing
 
