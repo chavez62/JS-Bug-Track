@@ -13,7 +13,8 @@ const bugSchema = new mongoose.Schema({
   actualBehavior: { type: String, required: true },
   severity: { type: String, required: true },
   status: { type: String, required: true },
-  priority: { type: String, required: true }
+  priority: { type: String, required: true },
+  attachment: { type: String, required: false },
 });
 
 module.exports = mongoose.model('Bug', bugSchema);
