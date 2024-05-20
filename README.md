@@ -6,7 +6,9 @@ This is a bug tracking system built with Node.js, Express, MongoDB, and Passport
 
 - User authentication (login, logout, register)
 - Flash messages for success and error notifications
-- Basic bug reporting functionality
+- Bug reporting functionality with attachments
+- Status indicators for bug tracking
+- Search and filter bugs by title, module, and other fields
 
 ## Technologies Used
 
@@ -20,6 +22,7 @@ This is a bug tracking system built with Node.js, Express, MongoDB, and Passport
 - body-parser
 - connect-flash
 - express-session
+- multer (for file uploads)
 
 ## Prerequisites
 
@@ -62,9 +65,12 @@ Before you begin, ensure you have met the following requirements:
 ## Project Structure
 
 - `models/User.js` - User model definition using Mongoose.
+- `models/Bug.js` - Bug model definition using Mongoose.
 - `routes/auth.js` - Authentication routes (login, register, logout).
 - `routes/bug.js` - Bug reporting routes.
+- `config/multerConfig.js` - Multer configuration for handling file uploads.
 - `views` - EJS templates for rendering pages.
+- `public` - Static files (CSS, JavaScript, images).
 
 ## Usage
 
@@ -73,12 +79,13 @@ Before you begin, ensure you have met the following requirements:
     - **Username:** `admin`
     - **Password:** `password`
 - Log in and start reporting bugs.
+- Attach files to bug reports if needed.
+- Edit and delete bug reports.
 
 ## Screenshots
 
 ![image](https://github.com/chavez62/JS-Bug-Track/assets/67764701/adc045ae-7e6b-4710-8e55-568f6ee7dd17)
 ![image](https://github.com/chavez62/JS-Bug-Track/assets/67764701/f6583563-47ce-46c9-bbbc-ca8f3970c40c)
-
 
 ## Acknowledgements
 
@@ -87,4 +94,4 @@ Before you begin, ensure you have met the following requirements:
 - [MongoDB](https://www.mongodb.com/)
 - [EJS](https://ejs.co/)
 - [bcrypt.js](https://github.com/dcodeIO/bcrypt.js)
-
+- [multer](https://github.com/expressjs/multer)
