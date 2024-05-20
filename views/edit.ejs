@@ -7,6 +7,13 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <style>
+      body {
+        background-color: #f8f9fa;
+      }
+                 
+      .navbar-brand {
+        font-weight: bold;
+      }
       .error {
         color: red;
         font-size: 0.875em;
@@ -59,6 +66,7 @@
     </nav>
     <h1 class="my-4">Edit Bug</h1>
     <form action="/edit/<%= bug.id %>" method="POST" enctype="multipart/form-data" id="bugForm" novalidate>
+      <input type="hidden" name="existingAttachment" value="<%= bug.attachment %>" />
       <div class="form-row">
         <div class="form-group col-md-6">
           <label for="title">Title:</label>
@@ -83,7 +91,7 @@
       </div>
       <div class="form-group">
         <label for="dateReported">Date Reported:</label>
-        <input type="date" id="dateReported" name="dateReported" class="form-control" value="<%= bug.dateReported.toISOString().split('T')[0] %>" required />
+        <input type="date" id="dateReported" name="dateReported" class="form-control" value="<%= bug.dateReported %>" required />
         <div class="invalid-feedback">Date reported is required.</div>
       </div>
       <div class="form-group">
