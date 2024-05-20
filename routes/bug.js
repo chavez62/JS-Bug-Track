@@ -82,10 +82,15 @@ router.post(
 // Edit bug
 router.get("/edit/:id", isAuthenticated, async (req, res) => {
   const bug = await Bug.findOne({ id: req.params.id });
+
+  if (bug.dateReported) {
+    bug.dateReported = bug.dateReported.toISOString().split('T')[0];
+  }
+
   res.render("edit", { bug });
 });
 
-router.post("/edit/:id", isAuthenticated, async (req, res) => {
+router.post("/edit/:id", isAuthenticated, upload.single("attachment"), async (req, res) => {
   const {
     title,
     module,
@@ -97,9 +102,11 @@ router.post("/edit/:id", isAuthenticated, async (req, res) => {
     actualBehavior,
     severity,
     status,
-    priority,
-    attachment,
+    priority
   } = req.body;
+
+  const attachment = req.file ? req.file.filename : req.body.existingAttachment;
+
   await Bug.findOneAndUpdate(
     { id: req.params.id },
     {
@@ -117,6 +124,7 @@ router.post("/edit/:id", isAuthenticated, async (req, res) => {
       attachment,
     }
   );
+
   res.redirect("/");
 });
 
