@@ -10,7 +10,6 @@
       body {
         background-color: #f8f9fa;
       }
-                 
       .navbar-brand {
         font-weight: bold;
       }
@@ -22,20 +21,15 @@
         max-width: 200px;
         margin-top: 10px;
       }
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
     </style>
   </head>
   <body class="container mt-5">
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
       <a class="navbar-brand" href="/">Bug Tracker 🕷</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
@@ -65,7 +59,7 @@
       </div>
     </nav>
     <h1 class="my-4">Edit Bug</h1>
-    <form action="/edit/<%= bug.id %>" method="POST" enctype="multipart/form-data" id="bugForm" novalidate>
+    <form action="/edit/<%= bug.id %>" method="POST" enctype="multipart/form-data" id="bugForm" class="needs-validation" novalidate>
       <input type="hidden" name="existingAttachment" value="<%= bug.attachment %>" />
       <div class="form-row">
         <div class="form-group col-md-6">
@@ -156,7 +150,7 @@
           // Fetch all the forms we want to apply custom Bootstrap validation styles to
           var forms = document.getElementsByClassName("needs-validation");
           // Loop over them and prevent submission
-          var validation = Array.prototype.filter.call(forms, function (form) {
+          Array.prototype.filter.call(forms, function (form) {
             form.addEventListener("submit", function (event) {
               if (form.checkValidity() === false) {
                 event.preventDefault();
